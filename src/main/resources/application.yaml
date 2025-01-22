@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: practice_oauth
+
+  security:
+    oauth2:
+      client:
+        registration:
+          discord:
+            client-name: jeeleeTest
+            client-id: { client-id }
+            client-secret: { client-secret }
+            scope:
+              - identify
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/discord
+        provider:
+          discord:
+            authorization-uri: https://discord.com/api/oauth2/authorize
+            token-uri: https://discord.com/api/oauth2/token
+            user-info-uri: https://discord.com/api/users/@me
+            user-name-attribute: id
+
