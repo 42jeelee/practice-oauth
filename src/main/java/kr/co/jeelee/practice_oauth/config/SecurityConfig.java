@@ -12,11 +12,12 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests(authorize -> authorize
-				.requestMatchers("/").permitAll()
+				.requestMatchers("/login", "/user").permitAll()
 				.anyRequest().authenticated()
 			)
-			.oauth2Login(oauth ->
-				oauth.defaultSuccessUrl("/login", true)
+			.oauth2Login(oauth -> oauth
+					.defaultSuccessUrl("/user", true)
+					.failureUrl("/user?error=true")
 			);
 
 		return http.build();
