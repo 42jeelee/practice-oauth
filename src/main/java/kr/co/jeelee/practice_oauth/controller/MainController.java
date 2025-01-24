@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MainController {
 
-	@GetMapping(value = "/login")
+	@GetMapping(value = "/login/discord")
 	public ResponseEntity<?> login() {
 		return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/oauth2/authorization/discord").build();
 	}
