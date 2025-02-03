@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import kr.co.jeelee.practice_oauth.JwtProvider;
 import kr.co.jeelee.practice_oauth.dto.CustomOAuth2User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private final ObjectMapper objectMapper;
+    private final JwtProvider jwtProvider;
 
     @Override
     public void onAuthenticationSuccess(
@@ -33,6 +35,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         data.put("status", "success");
         data.put("user", user.getAttributes());
+        data.put("access_token", jwtProvider.generateToken(authentication));
 
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
