@@ -32,4 +32,8 @@ public record CustomOAuth2User(
         return member().getId();
     }
 
+    public static CustomOAuth2User of(Member member) {
+        return new CustomOAuth2User(member, null);
+    }
+
 }

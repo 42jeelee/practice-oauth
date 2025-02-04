@@ -32,11 +32,12 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         CustomOAuth2User user = (CustomOAuth2User) authentication.getPrincipal();
 
         Map<String, Object> data = new HashMap<>();
+        String accessToken = jwtProvider.generateToken(authentication);
 
         data.put("status", "success");
         data.put("user", user.getAttributes());
-        data.put("access_token", jwtProvider.generateToken(authentication));
 
+        response.setHeader("Authorization", "Bearer " + accessToken);
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
